@@ -30,7 +30,7 @@ class CLBase {
   int argc_;
   char** argv_;
   std::string name_;
-  std::string get_args_ = "f:g:hk:su:m";
+  std::string get_args_ = "f:g:hk:su:me:";
   std::vector<std::string> help_strings_;
 
   int scale_ = -1;
@@ -39,6 +39,7 @@ class CLBase {
   bool symmetrize_ = false;
   bool uniform_ = false;
   bool in_place_ = false;
+  std::string perf_events_ = "cycles";
 
   void AddHelpLine(char opt, std::string opt_arg, std::string text,
                    std::string def = "") {
@@ -64,6 +65,7 @@ class CLBase {
     AddHelpLine('k', "degree", "average degree for synthetic graph",
                 std::to_string(degree_));
     AddHelpLine('m', "", "reduces memory usage during graph building", "false");
+    AddHelpLine('e', "perf events", "perf tool events to be monitored", "cycles:u");
   }
 
   bool ParseArgs() {
@@ -90,6 +92,7 @@ class CLBase {
       case 's': symmetrize_ = true;                         break;
       case 'u': uniform_ = true; scale_ = atoi(opt_arg);    break;
       case 'm': in_place_ = true;                           break;
+      case 'e': perf_events_ = std::string(opt_arg);         break;
     }
   }
 
@@ -107,6 +110,7 @@ class CLBase {
   bool symmetrize() const { return symmetrize_; }
   bool uniform() const { return uniform_; }
   bool in_place() const { return in_place_; }
+  std::string events() const {return perf_events_; }
 };
 
 
