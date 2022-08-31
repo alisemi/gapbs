@@ -35,7 +35,6 @@ const float kDamp = 0.85;
 pvector<ScoreT> PageRankPullGS(const Graph &g, const std::string filename, const std::string events, const  int max_iters,
                              double epsilon = 0) {
   
-  std::cout << events << "\n";
   const ScoreT init_score = 1.0f / g.num_nodes();
   const ScoreT base_score = (1.0f - kDamp) / g.num_nodes();
   pvector<ScoreT> scores(g.num_nodes(), init_score);
@@ -64,7 +63,7 @@ pvector<ScoreT> PageRankPullGS(const Graph &g, const std::string filename, const
         error += fabs(scores[u] - old_score);
         outgoing_contrib[u] = scores[u] / g.out_degree(u);
       }
-      printf(" %2d    %lf\n", iter, error);
+      //printf(" %2d    %lf\n", iter, error);
       if (error < epsilon)
         break;
     }

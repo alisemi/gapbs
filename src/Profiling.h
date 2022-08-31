@@ -18,7 +18,6 @@ struct System
     static void profile(const std::string& name, const std::string& events, std::function<void()> body) {
         std::string filename = name.find(".data") == std::string::npos ? (name + ".data") : name;
 
-        std::cout << events.c_str() << "\n";
         // Launch profiler
         pid_t pid;
         std::stringstream s;
